@@ -6,5 +6,37 @@ BONUS: OTTIMIZZARE CON HANDLEBARS
 */
 
 $(document).ready(function() {
+    $(".square").click(function(){
+        var squareAttivo = $(this);
+        $.ajax({
+            url: 'https://flynn.boolean.careers/exercises/api/random/int',  //Funzione base per generare numeri random da 0 a 9
+            method: 'GET',
+            success: function (data) {
+                var numeroRandom = data.response;
+                if(numeroRandom >= 5){
+                    diventaGiallo(squareAttivo, numeroRandom);
+                } else {
+                    diventaVerde(squareAttivo, numeroRandom);
+                }
+            },
+            error: function(){
+                alert('ERRORE');    //In caso di errore generico
+            }
+        });
+    });
+
+    function diventaGiallo(quadratoAttivo, numero){
+        quadratoAttivo.empty();
+        quadratoAttivo.css("background-color", "yellow");
+        quadratoAttivo.append(numero);
+    }
+
+
+    function diventaVerde(quadratoAttivo, numero){
+        quadratoAttivo.empty();
+        quadratoAttivo.css("background-color", "green");
+        quadratoAttivo.append(numero);
+    };
+
 
 });
